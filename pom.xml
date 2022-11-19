@@ -44,42 +44,28 @@
     <maven.compiler.source>8</maven.compiler.source>
     <maven.compiler.target>${maven.compiler.source}</maven.compiler.target>
     <maven.compiler.release>${maven.compiler.target}</maven.compiler.release>
-    <maven.compiler.testSource>17</maven.compiler.testSource>
-    <maven.compiler.testTarget>${maven.compiler.testSource}</maven.compiler.testTarget>
-    <maven.compiler.testRelease>${maven.compiler.testTarget}</maven.compiler.testRelease>
     <sonar.organization>jinahya-github</sonar.organization>
     <sonar.host.url>https://sonarcloud.io</sonar.host.url>
   </properties>
 
-  <dependencyManagement>
-    <dependencies>
-    </dependencies>
-  </dependencyManagement>
-
   <dependencies>
     <dependency>
       <groupId>com.github.jinahya</groupId>
-      <artifactId>org-w3-xmldsig-core1-bind</artifactId>
-      <version>0.0.2</version>
+      <artifactId>org-w3-xmldsig-core1-bind-javax</artifactId>
+      <version>0.0.4</version>
       <scope>compile</scope>
+    </dependency>
+    <dependency>
+      <groupId>javax.xml.bind</groupId>
+      <artifactId>jaxb-api</artifactId>
+      <version>2.4.0-b180830.0359</version>
+      <scope>provided</scope>
     </dependency>
   </dependencies>
 
   <build>
     <pluginManagement>
       <plugins>
-        <plugin>
-          <groupId>org.apache.maven.plugins</groupId>
-          <artifactId>maven-jar-plugin</artifactId>
-          <version>3.2.2</version>
-          <configuration>
-            <archive>
-              <manifestEntries>
-                <Automatic-Module-Name>com.github.jinahya.iata.ndc.bind</Automatic-Module-Name>
-              </manifestEntries>
-            </archive>
-          </configuration>
-        </plugin>
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-javadoc-plugin</artifactId>
@@ -94,11 +80,6 @@
           <version>2.13.0</version>
         </plugin>
         <plugin>
-          <groupId>org.jvnet.jaxb2.maven2</groupId>
-          <artifactId>maven-jaxb23-plugin</artifactId>
-          <version>0.15.1</version>
-        </plugin>
-        <plugin>
           <groupId>org.codehaus.mojo</groupId>
           <artifactId>license-maven-plugin</artifactId>
           <version>2.0.0</version>
@@ -110,15 +91,6 @@
           <groupId>org.codehaus.mojo</groupId>
           <artifactId>tidy-maven-plugin</artifactId>
           <version>1.2.0</version>
-          <executions>
-            <execution>
-              <id>validate</id>
-              <phase>validate</phase>
-              <goals>
-                <!--              <goal>check</goal>-->
-              </goals>
-            </execution>
-          </executions>
         </plugin>
       </plugins>
     </pluginManagement>
@@ -225,32 +197,11 @@
           <execution>
             <id>xjc</id>
             <goals>
-              <!--                  <goal>xjc</goal>-->
+              <goal>xjc</goal>
             </goals>
             <phase>generate-sources</phase> <!-- default -->
             <configuration>
               <enableIntrospection>true</enableIntrospection>
-              <sources>
-                <source>${project.basedir}/src/main/xsd/21_3_3_distribution_schemas</source>
-              </sources>
-            </configuration>
-          </execution>
-        </executions>
-      </plugin>
-      <plugin>
-        <groupId>org.jvnet.jaxb2.maven2</groupId>
-        <artifactId>maven-jaxb23-plugin</artifactId>
-        <version>0.15.1</version>
-        <executions>
-          <execution>
-            <id>generate</id>
-            <goals>
-              <goal>generate</goal>
-            </goals>
-            <configuration>
-              <extension>true</extension>
-              <episode>true</episode>
-              <useDependenciesAsEpisodes>true</useDependenciesAsEpisodes>
             </configuration>
           </execution>
         </executions>

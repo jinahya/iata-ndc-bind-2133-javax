@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
   <parent>
@@ -8,7 +9,7 @@
     <version>0.8.9</version>
   </parent>
 
-  <artifactId>iata-ndc-bind-javax</artifactId>
+  <artifactId>iata-ndc-bind-2133-javax</artifactId>
   <version>0.0.2-SNAPSHOT</version>
   <packaging>jar</packaging>
 
@@ -43,15 +44,17 @@
     <maven.compiler.source>8</maven.compiler.source>
     <maven.compiler.target>${maven.compiler.source}</maven.compiler.target>
     <maven.compiler.release>${maven.compiler.target}</maven.compiler.release>
+    <automatic.module.name>com.github.jinahya.iata.ndc.bind</automatic.module.name>
     <sonar.organization>jinahya-github</sonar.organization>
     <sonar.host.url>https://sonarcloud.io</sonar.host.url>
+    <version.org-w3-xmldsig-core1-bind>0.0.5-SNAPSHOT</version.org-w3-xmldsig-core1-bind>
   </properties>
 
   <dependencies>
     <dependency>
       <groupId>com.github.jinahya</groupId>
       <artifactId>org-w3-xmldsig-core1-bind-javax</artifactId>
-      <version>0.0.4</version>
+      <version>${version.org-w3-xmldsig-core1-bind}</version>
       <scope>compile</scope>
     </dependency>
     <dependency>
@@ -65,14 +68,6 @@
   <build>
     <pluginManagement>
       <plugins>
-        <plugin>
-          <groupId>org.apache.maven.plugins</groupId>
-          <artifactId>maven-javadoc-plugin</artifactId>
-          <version>3.4.0</version>
-          <configuration>
-            <doclint>all</doclint>
-          </configuration>
-        </plugin>
         <plugin>
           <groupId>org.codehaus.mojo</groupId>
           <artifactId>versions-maven-plugin</artifactId>
@@ -104,14 +99,15 @@
             <phase>generate-sources</phase> <!-- should be proceeded before the xjc -->
             <configuration>
               <target>
-                <property name="xsd" value="${project.basedir}/src/main/xsd_" />
-                <delete dir="${xsd}" includeEmptyDirs="true" />
+                <property name="xsd" value="${project.basedir}/src/main/xsd"/>
+                <delete includeemptydirs="true">
+                  <fileset dir="${xsd}" includes="**/*"/>
+                </delete>
                 <unzip src="${project.basedir}/src/main/zip/21_3_3_distribution_schemas.zip" dest="${xsd}">
                   <patternset>
-                    <include name="**/*.xsd" />
-                    <exclude name="**/xmldsig-core-schema.xsd" />
+                    <include name="**/*.xsd"/>
                   </patternset>
-                  <mapper type="flatten" />
+                  <mapper type="flatten"/>
                 </unzip>
               </target>
             </configuration>
@@ -133,9 +129,9 @@
             </goals>
             <configuration>
               <rules>
-                <dependencyConvergence />
+                <dependencyConvergence/>
                 <requireJavaVersion>
-                  <version>[17.0.0,)</version>
+                  <version>[1.8.0,)</version>
                 </requireJavaVersion>
                 <requireMavenVersion>
                   <version>[3.5.4,)</version>
@@ -162,9 +158,24 @@
         <configuration>
           <archive>
             <manifestEntries>
-              <Automatic-Module-Name>com.github.jinahya.iata.ndc.bind</Automatic-Module-Name>
+              <Automatic-Module-Name>${automatic.module.name}</Automatic-Module-Name>
             </manifestEntries>
           </archive>
+          <excludes>
+            <exclude>org.w3.**</exclude>
+          </excludes>
+        </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-javadoc-plugin</artifactId>
+        <version>3.4.0</version>
+        <configuration>
+          <doclint>all</doclint>
+          <excludePackageNames>org.w3.*</excludePackageNames>
+          <links>
+            <link>https://static.javadoc.io/com.github.jinahya/org-w3-xmldsig-core1-bind-javax/${version.org-w3-xmldsig-core1-bind}</link>
+          </links>
         </configuration>
       </plugin>
       <plugin>
@@ -201,6 +212,7 @@
             <phase>generate-sources</phase> <!-- default -->
             <configuration>
               <enableIntrospection>true</enableIntrospection>
+              <episodeFileName>${automatic.module.name}-episode.xjb</episodeFileName>
             </configuration>
           </execution>
         </executions>

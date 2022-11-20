@@ -109,9 +109,9 @@
               <target>
                 <property name="xsd" value="${project.basedir}/src/main/xsd" />
                 <mkdir dir="${xsd}"/>
-                <delete includeemptydirs="true">
-                  <fileset dir="${xsd}" includes="**/*" />
-                </delete>
+<!--                <delete includeemptydirs="true">-->
+<!--                  <fileset dir="${xsd}" includes="**/*" />-->
+<!--                </delete>-->
                 <unzip src="${project.basedir}/src/main/zip/21_3_3_distribution_schemas.zip" dest="${xsd}">
                   <patternset>
                     <include name="**/*.xsd" />

@@ -212,7 +212,7 @@
             <phase>generate-sources</phase> <!-- default -->
             <configuration>
               <enableIntrospection>true</enableIntrospection>
-              <episodeFileName>${automatic.module.name}-episode.xjb</episodeFileName>
+              <episodeFileName>${automatic.module.name}-episode</episodeFileName>
             </configuration>
           </execution>
         </executions>

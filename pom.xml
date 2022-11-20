@@ -47,7 +47,7 @@
     <automatic.module.name>com.github.jinahya.iata.ndc.bind</automatic.module.name>
     <sonar.organization>jinahya-github</sonar.organization>
     <sonar.host.url>https://sonarcloud.io</sonar.host.url>
-    <version.org-w3-xmldsig-core1-bind>0.0.5-SNAPSHOT</version.org-w3-xmldsig-core1-bind>
+    <version.org-w3-xmldsig-core1-bind>0.0.5</version.org-w3-xmldsig-core1-bind>
   </properties>
 
   <dependencies>
@@ -171,7 +171,7 @@
         <artifactId>maven-javadoc-plugin</artifactId>
         <version>3.4.0</version>
         <configuration>
-          <doclint>all</doclint>
+          <doclint>none</doclint>
           <excludePackageNames>org.w3.*</excludePackageNames>
           <links>
             <link>https://static.javadoc.io/com.github.jinahya/org-w3-xmldsig-core1-bind-javax/${version.org-w3-xmldsig-core1-bind}</link>

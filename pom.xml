@@ -109,6 +109,7 @@
             <configuration>
               <target>
                 <property name="xsd" value="${project.basedir}/src/main/xsd"/>
+                <delete dir="${xsd}"/>
                 <delete includeemptydirs="true">
                   <fileset dir="${xsd}" includes="**/*"/>
                 </delete>

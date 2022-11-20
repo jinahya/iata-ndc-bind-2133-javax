@@ -44,6 +44,9 @@
     <maven.compiler.source>8</maven.compiler.source>
     <maven.compiler.target>${maven.compiler.source}</maven.compiler.target>
     <maven.compiler.release>${maven.compiler.target}</maven.compiler.release>
+    <maven.compiler.testSource>17</maven.compiler.testSource>
+    <maven.compiler.testTarget>${maven.compiler.testSource}</maven.compiler.testTarget>
+    <maven.compiler.testRelease>${maven.compiler.testTarget}</maven.compiler.testRelease>
     <automatic.module.name>com.github.jinahya.iata.ndc.bind</automatic.module.name>
     <sonar.organization>jinahya-github</sonar.organization>
     <sonar.host.url>https://sonarcloud.io</sonar.host.url>
@@ -62,6 +65,12 @@
       <artifactId>jaxb-api</artifactId>
       <version>2.4.0-b180830.0359</version>
       <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.junit.jupiter</groupId>
+      <artifactId>junit-jupiter</artifactId>
+      <version>5.9.1</version>
+      <scope>test</scope>
     </dependency>
   </dependencies>
 
@@ -162,7 +171,7 @@
             </manifestEntries>
           </archive>
           <excludes>
-            <exclude>org.w3.**</exclude>
+            <exclude>org/w3/**</exclude>
           </excludes>
         </configuration>
       </plugin>
@@ -177,6 +186,11 @@
             <link>https://static.javadoc.io/com.github.jinahya/org-w3-xmldsig-core1-bind-javax/${version.org-w3-xmldsig-core1-bind}</link>
           </links>
         </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-surefire-plugin</artifactId>
+        <version>2.22.2</version>
       </plugin>
       <plugin>
         <groupId>org.codehaus.mojo</groupId>
